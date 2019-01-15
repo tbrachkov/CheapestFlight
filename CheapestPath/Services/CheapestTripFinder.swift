@@ -58,7 +58,7 @@ struct CheapestTripFinder {
         }
     }
     
-    func query(from: String, to: String) -> Int? {
+    func query(from: String, to: String) -> CheapestTrip? {
         guard let startNode = tripConnectionsGraphNodes[from] as? GKGraphNode, let endNode = tripConnectionsGraphNodes[to] as? GKGraphNode else {
             return nil
         }
@@ -68,8 +68,8 @@ struct CheapestTripFinder {
             return nil
         }
         let cost = calculateCost(for: path)
-
-        return cost
+        let cheapestPath = CheapestTrip(from: from, to: to, price: cost, tripConnections: [])
+        return cheapestPath
     }
     
     private func calculateCost(for path: [GKGraphNode]) -> Int {

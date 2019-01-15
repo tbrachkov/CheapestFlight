@@ -10,6 +10,8 @@ import Foundation
 
 protocol TripSelectorDelegate: class {
     func didFind(cheapestTrip: CheapestTrip?)
+    func didUpdate(from destinations: [String])
+    func didUpdate(to destinations: [String])
 }
 
 protocol TripSelectorInput {
@@ -22,6 +24,7 @@ class TripSelectorViewModel: TripSelectorInput {
     weak var delegate: TripSelectorDelegate?
     let apiClientService: APIClientService
     var cheapestTripFinder: CheapestTripFinder?
+    var trips: [TripConnection]
     
     convenience init() {
         let apiClientService = APIClientService()
@@ -30,6 +33,7 @@ class TripSelectorViewModel: TripSelectorInput {
 
     init(apiClientService: APIClientService) {
         self.apiClientService = apiClientService
+        self.trips = []
     }
     
     func didSelectStart(from: String) {
@@ -41,13 +45,24 @@ class TripSelectorViewModel: TripSelectorInput {
     }
     
     func start() {
-        requesttripsFromAPI { [weak self] (tripConnections) in
+        requestTripsFromAPI { [weak self] (tripConnections) in
+            guard let strongSelf = self else {
+                return
+            }
             let graph = CheapestTripFinder(tripConnections: tripConnections)
-            self?.cheapestTripFinder = graph
+            strongSelf.cheapestTripFinder = graph
+            strongSelf.updateFromAndToDestinations(from: tripConnections)
         }
     }
     
-    private func requesttripsFromAPI(callback: @escaping (_ tripConnections: [TripConnection]) -> Void) {
+    private func updateFromAndToDestinations(from tripConnections: [TripConnection]) {
+        let fromDestinations = tripConnections.compactMap { $0.from }
+        let toDestinations = tripConnections.compactMap { $0.to }
+        self.delegate?.didUpdate(from: fromDestinations)
+        self.delegate?.didUpdate(to: toDestinations)
+    }
+    
+    private func requestTripsFromAPI(callback: @escaping (_ tripConnections: [TripConnection]) -> Void) {
         apiClientService.getTripConnections { (error, data) in
             if let _ = error {
                 callback([])
@@ -63,7 +78,7 @@ class TripSelectorViewModel: TripSelectorInput {
             do {
                 let root = try decoder.decode(Root.self, from: rasultData)
                 callback(root.connections)
-            } catch let error {
+            } catch {
                 callback([])
             }
         }
