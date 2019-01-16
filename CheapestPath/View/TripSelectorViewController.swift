@@ -59,12 +59,6 @@ class TripSelectorViewController: UIViewController {
             return
         }
         
-        mapView.annotations.forEach {
-            if !($0 is MKUserLocation) {
-                self.mapView.removeAnnotation($0)
-            }
-        }
-        
         let startLocation = CLLocationCoordinate2D(latitude: start.coordinate.lat, longitude: start.coordinate.long)
         let destinationLocation = CLLocationCoordinate2D(latitude: destination.coordinate.lat, longitude: destination.coordinate.long)
         
@@ -84,14 +78,23 @@ class TripSelectorViewController: UIViewController {
         let coords = connections.map { CLLocationCoordinate2DMake(CLLocationDegrees($0.coordinate.lat), CLLocationDegrees($0.coordinate.long)) }
         let routePolyline = MKPolyline(coordinates: coords, count: coords.count)
         
-        if let overlay = mapOverlay {
-            mapView.removeOverlay(overlay)
-        }
         mapView.addOverlay(routePolyline)
         mapOverlay = routePolyline
         
         let rect = routePolyline.boundingMapRect
         mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+    }
+    
+    
+    private func clearMap() {
+        mapView.annotations.forEach {
+            if !($0 is MKUserLocation) {
+                self.mapView.removeAnnotation($0)
+            }
+        }
+        if let overlay = mapOverlay {
+            mapView.removeOverlay(overlay)
+        }
     }
 }
 
@@ -107,6 +110,7 @@ extension TripSelectorViewController: MKMapViewDelegate {
 
 extension TripSelectorViewController: TripSelectorDelegate {
     func didFind(cheapestTrip: CheapestTrip?) {
+        clearMap()
         guard let route = cheapestTrip else {
             cheapestResultLabel.text = ""
             return
