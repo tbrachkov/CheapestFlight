@@ -12,21 +12,26 @@ import GameplayKit
 protocol CheapestTripConnectable {
     func addConnection(to node: GKGraphNode, weight: Float)
     func cost(to node: GKGraphNode) -> Float
+    var name: String { get }
+    var coordinate: Coordinate2D { get }
 }
 
 extension CheapestTripNode: CheapestTripConnectable {}
 
 class CheapestTripNode: GKGraphNode {
-    let name: String
+    var name: String
+    var coordinate: Coordinate2D
     var travelCost: [GKGraphNode: Float] = [:]
     
-    init(name: String) {
+    init(name: String, coordinate: Coordinate2D) {
         self.name = name
+        self.coordinate = coordinate
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.name = "CheapestTrip"
+        self.coordinate = Coordinate2D(lat: -1.0, long: -1.0)
         super.init()
     }
     

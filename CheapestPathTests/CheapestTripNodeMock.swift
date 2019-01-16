@@ -12,17 +12,23 @@ import GameplayKit
 @testable import CheapestPath
 
 class CheapestTripNodeMock: GKGraphNode, CheapestTripConnectable {
+    var name: String
+    var coordinate: Coordinate2D
     
     var didCallAddConnection: Bool!
     var cost: Float
     
     init(cost: Float) {
         self.cost = cost
+        self.name = ""
+        self.coordinate = Coordinate2D(lat: -1.0, long: -1.0)
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.cost = 0
+        self.name = ""
+        self.coordinate = Coordinate2D(lat: -1.0, long: -1.0)
         super.init()
     }
     

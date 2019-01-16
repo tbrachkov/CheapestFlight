@@ -42,14 +42,14 @@ struct CheapestTripFinder {
             if let startNode = tripConnectionsGraphNodes[connection.from] as? CheapestTripNode {
                 nodeFrom = startNode
             }else {
-                nodeFrom = CheapestTripNode(name: "\(connection.from)")
+                nodeFrom = CheapestTripNode(name: "\(connection.from)", coordinate: connection.coordinates.from)
                 tripConnectionsGraphNodes.updateValue(nodeFrom, forKey: "\(connection.from)")
             }
             
             if let endNode = tripConnectionsGraphNodes[connection.to] as? CheapestTripNode {
                 nodeTo = endNode
             }else {
-                nodeTo = CheapestTripNode(name: "\(connection.to)")
+                nodeTo = CheapestTripNode(name: "\(connection.to)", coordinate: connection.coordinates.to)
                 tripConnectionsGraphNodes.updateValue(nodeTo, forKey: "\(connection.to)")
             }
 
@@ -68,8 +68,18 @@ struct CheapestTripFinder {
             return nil
         }
         let cost = calculateCost(for: path)
-        let cheapestPath = CheapestTrip(from: from, to: to, price: cost, tripConnections: [])
+        let tripConnections = getCityChanges(for: path as! [CheapestTripConnectable])
+        let cheapestPath = CheapestTrip(from: from, to: to, price: cost, tripConnections: tripConnections)
         return cheapestPath
+    }
+    
+    private func getCityChanges(for path: [CheapestTripConnectable]) -> [CityChange] {
+        var cityChanges: [CityChange] = []
+        for city in path {
+            let change = CityChange(name: city.name, coordinate: city.coordinate)
+            cityChanges.append(change)
+        }
+        return cityChanges
     }
     
     private func calculateCost(for path: [GKGraphNode]) -> Int {

@@ -27,4 +27,20 @@ struct Coordinates: Decodable {
 struct Coordinate2D: Decodable {
     let lat: Double
     let long: Double
+    
+    init(lat: Double, long: Double) {
+        self.lat = lat
+        self.long = long
+    }
+}
+
+
+struct CityChange {
+    let name: String
+    let coordinate: Coordinate2D
+    
+    init(name: String, coordinate: Coordinate2D) {
+        self.name = name
+        self.coordinate = coordinate
+    }
 }

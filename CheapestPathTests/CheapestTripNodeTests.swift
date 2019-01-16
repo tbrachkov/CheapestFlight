@@ -17,8 +17,8 @@ class CheapestTripNodeTests: XCTestCase {
     var toNode: GKGraphNode!
     
     override func setUp() {
-        fromNode = CheapestTripNode(name: "From")
-        toNode = CheapestTripNode(name: "To")
+        fromNode = CheapestTripNode(name: "From", coordinate: Coordinate2D(lat: -1.0, long: -1.0))
+        toNode = CheapestTripNode(name: "To",  coordinate: Coordinate2D(lat: -1.0, long: -1.0))
     }
     
     func testTheCostIsCorrectWhenOneNodeIsAdded() {

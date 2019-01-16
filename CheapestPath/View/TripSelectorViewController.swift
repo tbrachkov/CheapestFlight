@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class TripSelectorViewController: UIViewController {
     
@@ -16,9 +17,11 @@ class TripSelectorViewController: UIViewController {
     @IBOutlet weak var fromCityTextField: UITextField!
     @IBOutlet weak var toCityTextField: UITextField!
     @IBOutlet weak var cheapestResultLabel: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
     
     // MARK: - Properties
     var viewModel: TripSelectorInput!
+    private var mapOverlay: MKOverlay?
     
     // MARK: - View Controller lifecycle
     override func viewDidLoad() {
@@ -26,15 +29,79 @@ class TripSelectorViewController: UIViewController {
         
         cheapestResultLabel.text = ""
         
+        setupMapView()
+        setupTextFields()
+        setupViewModel()
+    }
+    
+    private func setupTextFields() {
         self.fromCityTextField.delegate = self
         self.toCityTextField.delegate = self
-
+    }
+    
+    private func setupMapView() {
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.mapType = .standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+    }
+    
+    private func setupViewModel() {
         viewModel = TripSelectorViewModel()
         viewModel.delegate = self
         viewModel.start()
     }
     
-    func requestCheapestTripQuote() {
+    private func drawMap(with connections: [CityChange]) {
+        guard let start = connections.first, let destination = connections.last else {
+            return
+        }
+        
+        mapView.annotations.forEach {
+            if !($0 is MKUserLocation) {
+                self.mapView.removeAnnotation($0)
+            }
+        }
+        
+        let startLocation = CLLocationCoordinate2D(latitude: start.coordinate.lat, longitude: start.coordinate.long)
+        let destinationLocation = CLLocationCoordinate2D(latitude: destination.coordinate.lat, longitude: destination.coordinate.long)
+        
+        let startAnnotation = MKPointAnnotation()
+        startAnnotation.title = start.name
+        startAnnotation.coordinate = startLocation
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = destination.name
+        destinationAnnotation.coordinate = destinationLocation
+        
+        mapView.showAnnotations([startAnnotation, destinationAnnotation], animated: true)
+        addRoute(with: connections)
+    }
+    
+    private func addRoute(with connections: [CityChange]) {
+        let coords = connections.map { CLLocationCoordinate2DMake(CLLocationDegrees($0.coordinate.lat), CLLocationDegrees($0.coordinate.long)) }
+        let routePolyline = MKPolyline(coordinates: coords, count: coords.count)
+        
+        if let overlay = mapOverlay {
+            mapView.removeOverlay(overlay)
+        }
+        mapView.addOverlay(routePolyline)
+        mapOverlay = routePolyline
+        
+        let rect = routePolyline.boundingMapRect
+        mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+    }
+}
+
+extension TripSelectorViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = .red
+        renderer.lineWidth = 4.0
+        
+        return renderer
     }
 }
 
@@ -45,6 +112,7 @@ extension TripSelectorViewController: TripSelectorDelegate {
             return
         }
         cheapestResultLabel.text = "Cheapest trip: \(route.price)"
+        drawMap(with: route.tripConnections)
     }
     
     func didUpdate(from destinations: [String]) {

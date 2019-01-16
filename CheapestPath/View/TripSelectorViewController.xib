@@ -15,6 +15,7 @@
                 <outlet property="cheapestResultLabel" destination="qDG-S0-bep" id="lh4-vT-jZ6"/>
                 <outlet property="fromCityLabel" destination="e47-be-V0l" id="FrR-fx-OO2"/>
                 <outlet property="fromCityTextField" destination="usk-9V-jBZ" id="2t4-eh-zvZ"/>
+                <outlet property="mapView" destination="mX9-Ra-9aO" id="Lx5-Q5-Nqm"/>
                 <outlet property="toCityLabel" destination="5nw-E3-Rix" id="ueb-3w-aFf"/>
                 <outlet property="toCityTextField" destination="qms-4g-IMP" id="9TD-6l-XcP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -55,10 +56,15 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mX9-Ra-9aO">
+                    <rect key="frame" x="0.0" y="269" width="375" height="398"/>
+                </mapView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="qms-4g-IMP" firstAttribute="trailing" secondItem="usk-9V-jBZ" secondAttribute="trailing" id="3JR-ub-Ehf"/>
+                <constraint firstItem="mX9-Ra-9aO" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="3WD-Ps-28N"/>
+                <constraint firstItem="mX9-Ra-9aO" firstAttribute="top" secondItem="qDG-S0-bep" secondAttribute="bottom" constant="28" id="4x5-Ct-1ZL"/>
                 <constraint firstItem="qms-4g-IMP" firstAttribute="top" secondItem="usk-9V-jBZ" secondAttribute="bottom" constant="30" id="5Af-Xa-IQu"/>
                 <constraint firstItem="e47-be-V0l" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="14" id="5aL-Uh-1gd"/>
                 <constraint firstItem="5nw-E3-Rix" firstAttribute="bottom" secondItem="qms-4g-IMP" secondAttribute="bottom" id="7mW-Rg-MR4"/>
@@ -66,10 +72,12 @@
                 <constraint firstItem="5nw-E3-Rix" firstAttribute="leading" secondItem="e47-be-V0l" secondAttribute="leading" id="Hd0-Ir-IGm"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="usk-9V-jBZ" secondAttribute="trailing" constant="44" id="I18-xI-86X"/>
                 <constraint firstItem="usk-9V-jBZ" firstAttribute="leading" secondItem="e47-be-V0l" secondAttribute="trailing" constant="10" id="I2S-6s-S7H"/>
+                <constraint firstItem="mX9-Ra-9aO" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="J1n-ba-kO1"/>
                 <constraint firstItem="qDG-S0-bep" firstAttribute="leading" secondItem="qms-4g-IMP" secondAttribute="leading" id="M8P-WG-d5N"/>
                 <constraint firstItem="5nw-E3-Rix" firstAttribute="trailing" secondItem="e47-be-V0l" secondAttribute="trailing" id="Pso-D8-Rlx"/>
                 <constraint firstItem="e47-be-V0l" firstAttribute="bottom" secondItem="usk-9V-jBZ" secondAttribute="bottom" id="QBN-bh-nzv"/>
                 <constraint firstItem="qDG-S0-bep" firstAttribute="top" secondItem="qms-4g-IMP" secondAttribute="bottom" constant="30" id="awj-6Q-mzj"/>
+                <constraint firstItem="mX9-Ra-9aO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fi0-Pb-xA3"/>
                 <constraint firstItem="qms-4g-IMP" firstAttribute="leading" secondItem="5nw-E3-Rix" secondAttribute="trailing" constant="10" id="iTT-M9-TeN"/>
                 <constraint firstItem="usk-9V-jBZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="vaE-b3-UKy"/>
             </constraints>

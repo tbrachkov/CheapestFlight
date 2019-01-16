@@ -12,9 +12,9 @@ struct CheapestTrip {
     let from: String
     let to: String
     let price: Int
-    let tripConnections: [TripConnection]
+    let tripConnections: [CityChange]
     
-    init(from: String, to: String, price: Int, tripConnections: [TripConnection]) {
+    init(from: String, to: String, price: Int, tripConnections: [CityChange]) {
         self.from = from
         self.to = to
         self.price = price
