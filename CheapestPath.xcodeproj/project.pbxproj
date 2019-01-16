@@ -13,6 +13,12 @@
 		BE917E9D21EE5FC400DF4255 /* CheapestTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917E9C21EE5FC400DF4255 /* CheapestTrip.swift */; };
 		BE917E9F21EE610100DF4255 /* CheapestTripFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917E9E21EE610100DF4255 /* CheapestTripFinder.swift */; };
 		BE917EA121EE63D800DF4255 /* CheapestTripNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917EA021EE63D800DF4255 /* CheapestTripNode.swift */; };
+		BE917EA321EFB74600DF4255 /* MapViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917EA221EFB74600DF4255 /* MapViewConfigurator.swift */; };
+		BE917EA521EFB8A400DF4255 /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917EA421EFB8A400DF4255 /* MapRenderer.swift */; };
+		BE917EA721EFBA9D00DF4255 /* MapViewPlotting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917EA621EFBA9D00DF4255 /* MapViewPlotting.swift */; };
+		BE917EA921EFBCDF00DF4255 /* oneSampleConnection.json in Resources */ = {isa = PBXBuildFile; fileRef = BE917EA821EFBCDF00DF4255 /* oneSampleConnection.json */; };
+		BE917EAB21EFC09700DF4255 /* fullListConnections.json in Resources */ = {isa = PBXBuildFile; fileRef = BE917EAA21EFC09700DF4255 /* fullListConnections.json */; };
+		BE917EAF21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE917EAE21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift */; };
 		C80B9A7E21EE3DC700BF35D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B9A7D21EE3DC700BF35D9 /* AppDelegate.swift */; };
 		C80B9A8521EE3DCA00BF35D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C80B9A8421EE3DCA00BF35D9 /* Assets.xcassets */; };
 		C80B9A8821EE3DCA00BF35D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B9A8621EE3DCA00BF35D9 /* LaunchScreen.storyboard */; };
@@ -52,6 +58,12 @@
 		BE917E9C21EE5FC400DF4255 /* CheapestTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTrip.swift; sourceTree = "<group>"; };
 		BE917E9E21EE610100DF4255 /* CheapestTripFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripFinder.swift; sourceTree = "<group>"; };
 		BE917EA021EE63D800DF4255 /* CheapestTripNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripNode.swift; sourceTree = "<group>"; };
+		BE917EA221EFB74600DF4255 /* MapViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewConfigurator.swift; sourceTree = "<group>"; };
+		BE917EA421EFB8A400DF4255 /* MapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRenderer.swift; sourceTree = "<group>"; };
+		BE917EA621EFBA9D00DF4255 /* MapViewPlotting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewPlotting.swift; sourceTree = "<group>"; };
+		BE917EA821EFBCDF00DF4255 /* oneSampleConnection.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oneSampleConnection.json; sourceTree = "<group>"; };
+		BE917EAA21EFC09700DF4255 /* fullListConnections.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fullListConnections.json; sourceTree = "<group>"; };
+		BE917EAE21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSelectorViewModelTests.swift; sourceTree = "<group>"; };
 		C80B9A7A21EE3DC700BF35D9 /* CheapestPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheapestPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C80B9A7D21EE3DC700BF35D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C80B9A8421EE3DCA00BF35D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,12 +149,15 @@
 			isa = PBXGroup;
 			children = (
 				C80B9A9421EE3DCA00BF35D9 /* Info.plist */,
+				BE917EA821EFBCDF00DF4255 /* oneSampleConnection.json */,
+				BE917EAA21EFC09700DF4255 /* fullListConnections.json */,
 				C80B9AB121EE3F5400BF35D9 /* MockURLSession.swift */,
 				C80B9AB321EE3F9100BF35D9 /* APIClientServiceTests.swift */,
 				C80B9AB721EE48E300BF35D9 /* TripConnectionModelTests.swift */,
 				C811B70921EF3EF1002F207E /* CheapestTripNodeTests.swift */,
 				C811B70B21EF41F3002F207E /* CheapestTripNodeMock.swift */,
 				C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */,
+				BE917EAE21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift */,
 				C811B71121EF6B0D002F207E /* MockGraph.swift */,
 				C80B9AB021EE3F5300BF35D9 /* CheapestPathTests-Bridging-Header.h */,
 			);
@@ -164,6 +179,9 @@
 				BE917E9621EE598200DF4255 /* TripSelectorViewController.swift */,
 				BE917E9A21EE5B3100DF4255 /* TripSelectorViewModel.swift */,
 				BE917E9721EE598200DF4255 /* TripSelectorViewController.xib */,
+				BE917EA221EFB74600DF4255 /* MapViewConfigurator.swift */,
+				BE917EA421EFB8A400DF4255 /* MapRenderer.swift */,
+				BE917EA621EFBA9D00DF4255 /* MapViewPlotting.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -302,6 +320,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE917EA921EFBCDF00DF4255 /* oneSampleConnection.json in Resources */,
+				BE917EAB21EFC09700DF4255 /* fullListConnections.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,8 +344,11 @@
 				C80B9AAF21EE3E9500BF35D9 /* APIClientService.swift in Sources */,
 				BE917EA121EE63D800DF4255 /* CheapestTripNode.swift in Sources */,
 				C80B9AB621EE474000BF35D9 /* TripConnection.swift in Sources */,
+				BE917EA321EFB74600DF4255 /* MapViewConfigurator.swift in Sources */,
 				BE917E9B21EE5B3100DF4255 /* TripSelectorViewModel.swift in Sources */,
+				BE917EA521EFB8A400DF4255 /* MapRenderer.swift in Sources */,
 				BE917E9F21EE610100DF4255 /* CheapestTripFinder.swift in Sources */,
+				BE917EA721EFBA9D00DF4255 /* MapViewPlotting.swift in Sources */,
 				C80B9A7E21EE3DC700BF35D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +361,7 @@
 				C811B70E21EF4228002F207E /* CheapestTripFinderTests.swift in Sources */,
 				C811B70C21EF41F3002F207E /* CheapestTripNodeMock.swift in Sources */,
 				C80B9AB221EE3F5400BF35D9 /* MockURLSession.swift in Sources */,
+				BE917EAF21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift in Sources */,
 				C80B9AB821EE48E300BF35D9 /* TripConnectionModelTests.swift in Sources */,
 				C811B70A21EF3EF1002F207E /* CheapestTripNodeTests.swift in Sources */,
 				C811B71221EF6B0D002F207E /* MockGraph.swift in Sources */,

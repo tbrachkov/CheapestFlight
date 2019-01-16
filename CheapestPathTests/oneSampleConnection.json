@@ -1,0 +1,17 @@
+{
+    "connections": [{
+        "from": "London",
+        "to": "Tokyo",
+        "coordinates": {
+            "from": {
+                "lat": 51.5285582,
+                "long": -0.241681
+            },
+            "to": {
+                "lat": 35.652832,
+                "long": 139.839478
+            }
+        },
+        "price": 600
+    }]
+}

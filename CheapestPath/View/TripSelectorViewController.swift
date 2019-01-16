@@ -21,17 +21,17 @@ class TripSelectorViewController: UIViewController {
     
     // MARK: - Properties
     var viewModel: TripSelectorInput!
-    private var mapOverlay: MKOverlay?
+    var mapRenderer: MapRenderer!
+    private var mapViewConfigurator: MapViewConfigurator!
     
     // MARK: - View Controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         cheapestResultLabel.text = ""
-        
         setupMapView()
         setupTextFields()
         setupViewModel()
+        setupMapRenderer(with: mapView)
     }
     
     private func setupTextFields() {
@@ -39,12 +39,17 @@ class TripSelectorViewController: UIViewController {
         self.toCityTextField.delegate = self
     }
     
+    private func setupMapRenderer(with mapView: MapViewPlotting) {
+        mapRenderer = MapRenderer(mapView: mapView)
+    }
+    
     private func setupMapView() {
+        mapViewConfigurator = MapViewConfigurator()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.mapType = .standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
-        mapView.delegate = self
+        mapView.delegate = mapViewConfigurator
         mapView.showsUserLocation = true
     }
     
@@ -53,78 +58,17 @@ class TripSelectorViewController: UIViewController {
         viewModel.delegate = self
         viewModel.start()
     }
-    
-    private func drawMap(with connections: [CityChange]) {
-        guard let start = connections.first, let destination = connections.last else {
-            return
-        }
-        
-        let startLocation = CLLocationCoordinate2D(latitude: start.coordinate.lat, longitude: start.coordinate.long)
-        let destinationLocation = CLLocationCoordinate2D(latitude: destination.coordinate.lat, longitude: destination.coordinate.long)
-        
-        let startAnnotation = MKPointAnnotation()
-        startAnnotation.title = start.name
-        startAnnotation.coordinate = startLocation
-        
-        let destinationAnnotation = MKPointAnnotation()
-        destinationAnnotation.title = destination.name
-        destinationAnnotation.coordinate = destinationLocation
-        
-        mapView.showAnnotations([startAnnotation, destinationAnnotation], animated: true)
-        addRoute(with: connections)
-    }
-    
-    private func addRoute(with connections: [CityChange]) {
-        let coords = connections.map { CLLocationCoordinate2DMake(CLLocationDegrees($0.coordinate.lat), CLLocationDegrees($0.coordinate.long)) }
-        let routePolyline = MKPolyline(coordinates: coords, count: coords.count)
-        
-        mapView.addOverlay(routePolyline)
-        mapOverlay = routePolyline
-        
-        let rect = routePolyline.boundingMapRect
-        mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-    }
-    
-    
-    private func clearMap() {
-        mapView.annotations.forEach {
-            if !($0 is MKUserLocation) {
-                self.mapView.removeAnnotation($0)
-            }
-        }
-        if let overlay = mapOverlay {
-            mapView.removeOverlay(overlay)
-        }
-    }
-}
-
-extension TripSelectorViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = .red
-        renderer.lineWidth = 4.0
-        
-        return renderer
-    }
 }
 
 extension TripSelectorViewController: TripSelectorDelegate {
     func didFind(cheapestTrip: CheapestTrip?) {
-        clearMap()
+        mapRenderer.clearMap()
         guard let route = cheapestTrip else {
             cheapestResultLabel.text = ""
             return
         }
         cheapestResultLabel.text = "Cheapest trip: \(route.price)"
-        drawMap(with: route.tripConnections)
-    }
-    
-    func didUpdate(from destinations: [String]) {
-        // TODO: - Use this in the future to make more interactive UI
-    }
-    
-    func didUpdate(to destinations: [String]) {
-        // TODO: - Use this in the future to make more interactive UI
+        mapRenderer.drawMap(with: route.tripConnections)
     }
 }
 
@@ -143,7 +87,6 @@ extension TripSelectorViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        
         if let destination = getFieldsIfNotEmpty() {
             viewModel.didSelect(from: destination.from, to: destination.to)
         }

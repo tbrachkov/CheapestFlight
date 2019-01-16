@@ -30,7 +30,6 @@ class APIClientServiceTests: XCTestCase {
         request.httpMethod = "GET"
         
         httpClient.getTripConnections(request: request, callback: { (_, _) in
-            
         })
         
         XCTAssertTrue(dataTask.resumeWasCalled)

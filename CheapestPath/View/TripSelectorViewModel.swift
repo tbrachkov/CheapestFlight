@@ -11,8 +11,6 @@ import UIKit
 
 protocol TripSelectorDelegate: class {
     func didFind(cheapestTrip: CheapestTrip?)
-    func didUpdate(from destinations: [String])
-    func didUpdate(to destinations: [String])
 }
 
 protocol TripSelectorInput {
@@ -28,6 +26,7 @@ class TripSelectorViewModel: TripSelectorInput {
     weak var delegate: TripSelectorDelegate?
     let apiClientService: APIClientService
     var cheapestTripFinder: CheapestTripFinder?
+    var cheapestTrip: CheapestTrip?
     var trips: [TripConnection]
     
     var fromDestinations: [String] = []
@@ -44,7 +43,7 @@ class TripSelectorViewModel: TripSelectorInput {
     }
     
     func didSelect(from: String, to: String) {
-        let cheapestTrip = cheapestTripFinder?.query(from: from, to: to)
+        cheapestTrip = cheapestTripFinder?.query(from: from, to: to)
         self.delegate?.didFind(cheapestTrip: cheapestTrip)
     }
     
@@ -86,9 +85,6 @@ class TripSelectorViewModel: TripSelectorInput {
         
         self.fromDestinations = fromDestinations
         self.toDestinations = toDestinations
-        
-        self.delegate?.didUpdate(from: fromDestinations)
-        self.delegate?.didUpdate(to: toDestinations)
     }
     
     private func requestTripsFromAPI(callback: @escaping (_ tripConnections: [TripConnection]) -> Void) {

@@ -14,26 +14,11 @@ class TripConnectionModelTests: XCTestCase {
 
     var jsonData: Data!
     override func setUp() {
-        let jsonString = """
-        {
-            "connections": [{
-                "from": "London",
-                "to": "Tokyo",
-                "coordinates": {
-                    "from": {
-                        "lat": 51.5285582,
-                        "long": -0.241681
-                    },
-                    "to": {
-                        "lat": 35.652832,
-                        "long": 139.839478
-                    }
-                },
-                "price": 600
-            }]
+        let bundle = Bundle(for: MockURLSession.self)
+        guard let filePath = bundle.path(forResource: "oneSampleConnection", ofType: "json"), case let  data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else {
+            fatalError("Missing test json for one connection")
         }
-        """
-        jsonData = jsonString.data(using: .utf8, allowLossyConversion: false) ?? Data(count: 1)
+        jsonData = data
     }
     
     func testTripGetsDecodedCorrectlyWithOneTrip() {
