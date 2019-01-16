@@ -22,6 +22,10 @@
 		C80B9AB421EE3F9100BF35D9 /* APIClientServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B9AB321EE3F9100BF35D9 /* APIClientServiceTests.swift */; };
 		C80B9AB621EE474000BF35D9 /* TripConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B9AB521EE474000BF35D9 /* TripConnection.swift */; };
 		C80B9AB821EE48E300BF35D9 /* TripConnectionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B9AB721EE48E300BF35D9 /* TripConnectionModelTests.swift */; };
+		C811B70A21EF3EF1002F207E /* CheapestTripNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B70921EF3EF1002F207E /* CheapestTripNodeTests.swift */; };
+		C811B70C21EF41F3002F207E /* CheapestTripNodeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B70B21EF41F3002F207E /* CheapestTripNodeMock.swift */; };
+		C811B70E21EF4228002F207E /* CheapestTripFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */; };
+		C811B71221EF6B0D002F207E /* MockGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B71121EF6B0D002F207E /* MockGraph.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +68,10 @@
 		C80B9AB321EE3F9100BF35D9 /* APIClientServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientServiceTests.swift; sourceTree = "<group>"; };
 		C80B9AB521EE474000BF35D9 /* TripConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripConnection.swift; sourceTree = "<group>"; };
 		C80B9AB721EE48E300BF35D9 /* TripConnectionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripConnectionModelTests.swift; sourceTree = "<group>"; };
+		C811B70921EF3EF1002F207E /* CheapestTripNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripNodeTests.swift; sourceTree = "<group>"; };
+		C811B70B21EF41F3002F207E /* CheapestTripNodeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripNodeMock.swift; sourceTree = "<group>"; };
+		C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripFinderTests.swift; sourceTree = "<group>"; };
+		C811B71121EF6B0D002F207E /* MockGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +140,10 @@
 				C80B9AB121EE3F5400BF35D9 /* MockURLSession.swift */,
 				C80B9AB321EE3F9100BF35D9 /* APIClientServiceTests.swift */,
 				C80B9AB721EE48E300BF35D9 /* TripConnectionModelTests.swift */,
+				C811B70921EF3EF1002F207E /* CheapestTripNodeTests.swift */,
+				C811B70B21EF41F3002F207E /* CheapestTripNodeMock.swift */,
+				C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */,
+				C811B71121EF6B0D002F207E /* MockGraph.swift */,
 				C80B9AB021EE3F5300BF35D9 /* CheapestPathTests-Bridging-Header.h */,
 			);
 			path = CheapestPathTests;
@@ -323,8 +335,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C80B9AB421EE3F9100BF35D9 /* APIClientServiceTests.swift in Sources */,
+				C811B70E21EF4228002F207E /* CheapestTripFinderTests.swift in Sources */,
+				C811B70C21EF41F3002F207E /* CheapestTripNodeMock.swift in Sources */,
 				C80B9AB221EE3F5400BF35D9 /* MockURLSession.swift in Sources */,
 				C80B9AB821EE48E300BF35D9 /* TripConnectionModelTests.swift in Sources */,
+				C811B70A21EF3EF1002F207E /* CheapestTripNodeTests.swift in Sources */,
+				C811B71221EF6B0D002F207E /* MockGraph.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

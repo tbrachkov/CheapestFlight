@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol TripSelectorDelegate: class {
     func didFind(cheapestTrip: CheapestTrip?)
@@ -15,9 +16,12 @@ protocol TripSelectorDelegate: class {
 }
 
 protocol TripSelectorInput {
-    func didSelectStart(from: String)
-    func didSelect(to: String)
+    func didSelect(from: String, to: String)
     func start()
+    func autoCompleteText(in textField: UITextField, using string: String, suggestions: [String]) -> Bool
+    var fromDestinations: [String] { get }
+    var toDestinations: [String] { get }
+    var delegate: TripSelectorDelegate? { set get }
 }
 
 class TripSelectorViewModel: TripSelectorInput {
@@ -26,6 +30,9 @@ class TripSelectorViewModel: TripSelectorInput {
     var cheapestTripFinder: CheapestTripFinder?
     var trips: [TripConnection]
     
+    var fromDestinations: [String] = []
+    var toDestinations: [String] = []
+
     convenience init() {
         let apiClientService = APIClientService()
         self.init(apiClientService: apiClientService)
@@ -36,12 +43,9 @@ class TripSelectorViewModel: TripSelectorInput {
         self.trips = []
     }
     
-    func didSelectStart(from: String) {
-        cheapestTripFinder?.query(from: "London", to: "Cape Town")
-    }
-    
-    func didSelect(to: String) {
-        cheapestTripFinder?.query(from: "London", to: "Cape Town")
+    func didSelect(from: String, to: String) {
+        let cheapestTrip = cheapestTripFinder?.query(from: from, to: to)
+        self.delegate?.didFind(cheapestTrip: cheapestTrip)
     }
     
     func start() {
@@ -55,9 +59,34 @@ class TripSelectorViewModel: TripSelectorInput {
         }
     }
     
+    func autoCompleteText(in textField: UITextField, using string: String, suggestions: [String]) -> Bool {
+        if !string.isEmpty,
+            let selectedTextRange = textField.selectedTextRange, selectedTextRange.end == textField.endOfDocument,
+            let prefixRange = textField.textRange(from: textField.beginningOfDocument, to: selectedTextRange.start),
+            let text = textField.text(in: prefixRange) {
+            let prefix = text + string
+            let matches = suggestions.filter { $0.hasPrefix(prefix) }
+            
+            if (matches.count > 0) {
+                textField.text = matches[0]
+                
+                if let start = textField.position(from: textField.beginningOfDocument, offset: prefix.count) {
+                    textField.selectedTextRange = textField.textRange(from: start, to: textField.endOfDocument)
+                    
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     private func updateFromAndToDestinations(from tripConnections: [TripConnection]) {
-        let fromDestinations = tripConnections.compactMap { $0.from }
-        let toDestinations = tripConnections.compactMap { $0.to }
+        let fromDestinations = tripConnections.compactMap { $0.from.capitalized }
+        let toDestinations = tripConnections.compactMap { $0.to.capitalized }
+        
+        self.fromDestinations = fromDestinations
+        self.toDestinations = toDestinations
+        
         self.delegate?.didUpdate(from: fromDestinations)
         self.delegate?.didUpdate(to: toDestinations)
     }
