@@ -14,7 +14,7 @@ class MapViewConfigurator: NSObject, MKMapViewDelegate {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = .red
         renderer.lineWidth = 4.0
-        
+
         return renderer
     }
 }

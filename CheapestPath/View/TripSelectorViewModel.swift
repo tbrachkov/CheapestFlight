@@ -16,13 +16,14 @@ protocol TripSelectorDelegate: class {
 protocol TripSelectorInput {
     func didSelect(from: String, to: String)
     func start()
-    func autoCompleteText(in textField: UITextField, using string: String, suggestions: [String]) -> Bool
+    func autoCompleteText(in textField: inout UITextFieldAutoCompletable, using string: String, suggestions: [String]) -> Bool
     var fromDestinations: [String] { get }
     var toDestinations: [String] { get }
     var delegate: TripSelectorDelegate? { set get }
 }
 
 class TripSelectorViewModel: TripSelectorInput {
+    
     weak var delegate: TripSelectorDelegate?
     let apiClientService: APIClientService
     var cheapestTripFinder: CheapestTripFinder?
@@ -58,7 +59,7 @@ class TripSelectorViewModel: TripSelectorInput {
         }
     }
     
-    func autoCompleteText(in textField: UITextField, using string: String, suggestions: [String]) -> Bool {
+    func autoCompleteText(in textField: inout UITextFieldAutoCompletable, using string: String, suggestions: [String]) -> Bool {
         if !string.isEmpty,
             let selectedTextRange = textField.selectedTextRange, selectedTextRange.end == textField.endOfDocument,
             let prefixRange = textField.textRange(from: textField.beginningOfDocument, to: selectedTextRange.start),

@@ -32,6 +32,8 @@
 		C811B70C21EF41F3002F207E /* CheapestTripNodeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B70B21EF41F3002F207E /* CheapestTripNodeMock.swift */; };
 		C811B70E21EF4228002F207E /* CheapestTripFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */; };
 		C811B71221EF6B0D002F207E /* MockGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811B71121EF6B0D002F207E /* MockGraph.swift */; };
+		C8C72C7321F0DFC300BBC41F /* UITextFieldAutocompletable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C72C7221F0DFC300BBC41F /* UITextFieldAutocompletable.swift */; };
+		C8C72C7521F0E6C500BBC41F /* MockAutocompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C72C7421F0E6C500BBC41F /* MockAutocompleteTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		C811B70B21EF41F3002F207E /* CheapestTripNodeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripNodeMock.swift; sourceTree = "<group>"; };
 		C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapestTripFinderTests.swift; sourceTree = "<group>"; };
 		C811B71121EF6B0D002F207E /* MockGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
+		C8C72C7221F0DFC300BBC41F /* UITextFieldAutocompletable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAutocompletable.swift; sourceTree = "<group>"; };
+		C8C72C7421F0E6C500BBC41F /* MockAutocompleteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAutocompleteTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 				C811B70D21EF4228002F207E /* CheapestTripFinderTests.swift */,
 				BE917EAE21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift */,
 				C811B71121EF6B0D002F207E /* MockGraph.swift */,
+				C8C72C7421F0E6C500BBC41F /* MockAutocompleteTextField.swift */,
 				C80B9AB021EE3F5300BF35D9 /* CheapestPathTests-Bridging-Header.h */,
 			);
 			path = CheapestPathTests;
@@ -182,6 +187,7 @@
 				BE917EA221EFB74600DF4255 /* MapViewConfigurator.swift */,
 				BE917EA421EFB8A400DF4255 /* MapRenderer.swift */,
 				BE917EA621EFBA9D00DF4255 /* MapViewPlotting.swift */,
+				C8C72C7221F0DFC300BBC41F /* UITextFieldAutocompletable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,6 +347,7 @@
 			files = (
 				BE917E9821EE598200DF4255 /* TripSelectorViewController.swift in Sources */,
 				BE917E9D21EE5FC400DF4255 /* CheapestTrip.swift in Sources */,
+				C8C72C7321F0DFC300BBC41F /* UITextFieldAutocompletable.swift in Sources */,
 				C80B9AAF21EE3E9500BF35D9 /* APIClientService.swift in Sources */,
 				BE917EA121EE63D800DF4255 /* CheapestTripNode.swift in Sources */,
 				C80B9AB621EE474000BF35D9 /* TripConnection.swift in Sources */,
@@ -362,6 +369,7 @@
 				C811B70C21EF41F3002F207E /* CheapestTripNodeMock.swift in Sources */,
 				C80B9AB221EE3F5400BF35D9 /* MockURLSession.swift in Sources */,
 				BE917EAF21EFC1FB00DF4255 /* TripSelectorViewModelTests.swift in Sources */,
+				C8C72C7521F0E6C500BBC41F /* MockAutocompleteTextField.swift in Sources */,
 				C80B9AB821EE48E300BF35D9 /* TripConnectionModelTests.swift in Sources */,
 				C811B70A21EF3EF1002F207E /* CheapestTripNodeTests.swift in Sources */,
 				C811B71221EF6B0D002F207E /* MockGraph.swift in Sources */,

@@ -74,10 +74,11 @@ extension TripSelectorViewController: TripSelectorDelegate {
 
 extension TripSelectorViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var textFieldAutocomplete = textField as UITextFieldAutoCompletable
         if textField == fromCityTextField {
-            return !self.viewModel.autoCompleteText(in: textField, using: string.capitalized, suggestions: viewModel.fromDestinations)
+            return !self.viewModel.autoCompleteText(in: &textFieldAutocomplete, using: string.capitalized, suggestions: viewModel.fromDestinations)
         }else {
-            return !self.viewModel.autoCompleteText(in: textField, using: string.capitalized, suggestions: viewModel.toDestinations)
+            return !self.viewModel.autoCompleteText(in: &textFieldAutocomplete, using: string.capitalized, suggestions: viewModel.toDestinations)
         }
     }
     
