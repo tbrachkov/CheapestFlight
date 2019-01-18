@@ -83,14 +83,25 @@ class TripSelectorViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.cheapestTrip?.tripConnections.count, 3)
     }
     
-    func testTextFieldAutoCompleteNotCompletingWithoutValidEndOfDocument() {
+    func testTextFieldAutoCompleteNotCompletingWhenWordNotFound() {
         let dataTask = MockURLSessionDataTask()
         session.nextDataTask = dataTask
         session.nextData = nil
         viewModel = TripSelectorViewModel(apiClientService: httpClient)
         viewModel.start()
-        var autocompleteTextField = MockAutocompleteTextField(text: "Lo") as UITextFieldAutoCompletable
-        let _ = viewModel.autoCompleteText(in: &autocompleteTextField, using: "Lo", suggestions: ["London", "Porto"])
+        var autocompleteTextField = MockAutocompleteTextField(text: "Lo", textInRange: "Lo") as UITextFieldAutoCompletable
+        let _ = viewModel.autoCompleteText(in: &autocompleteTextField, using: "l", suggestions: ["London", "Porto"])
         XCTAssertEqual(autocompleteTextField.text!, "Lo")
+    }
+    
+    func testTextFieldAutoCompleteFindingCompletionWhenWordFound() {
+        let dataTask = MockURLSessionDataTask()
+        session.nextDataTask = dataTask
+        session.nextData = nil
+        viewModel = TripSelectorViewModel(apiClientService: httpClient)
+        viewModel.start()
+        var autocompleteTextField = MockAutocompleteTextField(text: "Ne", textInRange: "Ne") as UITextFieldAutoCompletable
+        let _ = viewModel.autoCompleteText(in: &autocompleteTextField, using: "w", suggestions: ["New York", "Porto"])
+        XCTAssertEqual(autocompleteTextField.text!, "New York")
     }
 }

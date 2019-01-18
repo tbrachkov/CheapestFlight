@@ -18,14 +18,37 @@ class CheapestPathUITests: XCTestCase {
     override func tearDown() {
     }
 
-    func testExample() {
+    func testTripFromLondonToSydney() {
+        
         let fromTextField = XCUIApplication().textFields["fromField"]
         fromTextField.tap()
-        fromTextField.typeText("Lo")
-        
+        fromTextField.typeText("London")
+
         let toTextField = XCUIApplication().textFields["toField"]
         toTextField.tap()
-        toTextField.typeText("Sy")
+        toTextField.typeText("Sydney")
+        
+        fromTextField.tap()
+        
+        let cheapestPriceLabel = XCUIApplication().staticTexts["cheapestPrice"]
+        cheapestPriceLabel.waitUntilExists()
+        
+        XCTAssertEqual(cheapestPriceLabel.label, "Cheapest trip: 850")
     }
+}
 
+public extension XCUIElement {
+    @discardableResult
+    func waitUntilExists(_ timeout: TimeInterval = 10) -> XCUIElement {
+        if self.exists == true {
+            return self
+        }
+        
+        let test = XCTestCase()
+        test.continueAfterFailure = true
+        let predicate = NSPredicate(format: "exists == true")
+        let expectation = test.expectation(for: predicate, evaluatedWith: self, handler: nil)
+        XCTWaiter().wait(for: [expectation], timeout: timeout)
+        return self
+    }
 }

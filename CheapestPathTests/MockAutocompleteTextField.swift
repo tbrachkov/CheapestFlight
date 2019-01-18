@@ -22,11 +22,16 @@ extension NSRange {
 
 class MockAutocompleteTextField: UITextFieldAutoCompletable {
     
-    init(text: String) {
+    var textInRange: String
+    
+    init(text: String, textInRange: String) {
         self.text = text
+        self.textInRange = textInRange
+        let endTextPosition = UITextPosition()
         self.beginningOfDocument = UITextPosition()
-        self.endOfDocument = UITextPosition()
-        self.selectedTextRange = UITextRange()
+        self.endOfDocument = endTextPosition
+        let selectedRange = MockedTextRange(start: self.beginningOfDocument, end: endTextPosition)
+        self.selectedTextRange = selectedRange
     }
     
     var text: String?
@@ -40,16 +45,36 @@ class MockAutocompleteTextField: UITextFieldAutoCompletable {
 
     func textRange(from fromPosition: UITextPosition, to toPosition: UITextPosition) -> UITextRange? {
         didCallTextRangeFrom = true
-        return nil
+        return MockedTextRange(start: self.beginningOfDocument, end: self.endOfDocument)
     }
 
     func text(in range: UITextRange) -> String? {
         didCallTextInRange = true
-        return nil
+        return textInRange
     }
     
     func position(from position: UITextPosition, offset: Int) -> UITextPosition? {
         didCallPositionFrom = true
         return nil
+    }
+}
+
+
+class MockedTextRange: UITextRange {
+    var mockedStart: UITextPosition
+    var mockedEnd: UITextPosition
+    
+    init(start: UITextPosition, end: UITextPosition) {
+        self.mockedEnd = end
+        self.mockedStart = start
+        super.init()
+    }
+    
+    override var start: UITextPosition {
+        return mockedStart
+    }
+    
+    override var end: UITextPosition {
+        return mockedEnd
     }
 }
